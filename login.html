@@ -1,0 +1,15 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="css/style.css"><title>Login</title></head><body>
+<div id="nav"></div>
+<div class="container" style="max-width:420px">
+  <h1>Login</h1><p class="sub">Log in or create an account to make portfolios.</p>
+  <div id="errors"></div>
+  <div class="box">
+    <label>Email</label><input id="email" type="email">
+    <label>Password (at least 6 characters)</label><input id="password" type="password">
+    <div class="acts" style="margin-top:16px">
+      <button class="btn" onclick="doLogin()">Login</button>
+      <button class="btn ghost" onclick="doSignUp()">Sign up</button>
+    </div>
+  </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="js/config.js"></script><script src="js/db.js"></script><script src="js/nav.js"></script><script src="js/login.js"></script></body></html>

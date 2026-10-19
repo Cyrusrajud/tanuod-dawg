@@ -31,9 +31,11 @@ async function getAll() {
   return result.data;
 }
 
-// RETRIEVE: get one portfolio by id
-async function getOne(id) {
-  var result = await db.from('portfolios').select('*').eq('id', id).single();
+// RETRIEVE: get all portfolios of the logged-in user
+async function getAll() {
+  var session = await db.auth.getSession();
+  var userId = session.data.session.user.id;
+  var result = await db.from('portfolios').select('*').eq('user_id', userId).order('created_at', { ascending: false });
   if (result.error) { throw result.error; }
   return result.data;
 }
@@ -61,4 +63,36 @@ async function saveTemplate(id, templateName) {
 async function deletePortfolio(id) {
   var result = await db.from('portfolios').delete().eq('id', id);
   if (result.error) { throw result.error; }
+}
+
+// ---------- LOGIN ----------
+
+// Create a new account
+async function signUp(email, password) {
+  var result = await db.auth.signUp({ email: email, password: password });
+  if (result.error) { throw result.error; }
+  return result.data;
+}
+
+// Log in with an existing account
+async function logIn(email, password) {
+  var result = await db.auth.signInWithPassword({ email: email, password: password });
+  if (result.error) { throw result.error; }
+  return result.data;
+}
+
+// Log out
+async function logOut() {
+  await db.auth.signOut();
+  window.location.href = 'index.html';
+}
+
+// Use at the top of pages that need login. Sends visitors to the login page if not logged in.
+async function requireLogin() {
+  var result = await db.auth.getSession();
+  if (!result.data.session) {
+    window.location.href = 'login.html';
+    return false;
+  }
+  return true;
 }

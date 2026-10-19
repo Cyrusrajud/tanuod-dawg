@@ -167,4 +167,4 @@ async function start() {
     for (var k = 0; k < p.projects.length; k++) { addRow('projects', p.projects[k]); }
   } catch (error) { showProblems(['Could not load portfolio: ' + error.message]); }
 }
-start();
+  requireLogin().then(function (ok) { if (ok) { start(); } });

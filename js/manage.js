@@ -29,4 +29,4 @@ async function removeOne(id) {
     load();
   }
 }
-load();
+  requireLogin().then(function (ok) { if (ok) { load(); } });
